@@ -2,8 +2,6 @@ package starter.StepDef;
 
 import io.cucumber.java.en.Then;
 import net.serenitybdd.rest.SerenityRest;
-import net.thucydides.core.annotations.Steps;
-import starter.Reqres.ReqresAPI;
 
 public class ReqresStepDef {
 
