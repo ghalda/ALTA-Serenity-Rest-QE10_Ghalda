@@ -8,9 +8,8 @@ import starter.Reqres.ReqresAPI;
 import starter.Utils.Constants;
 
 import java.io.File;
-import static org.hamcrest.Matchers.equalTo;
 
-public class PutUsersStepDef {
+public class UpdateUsersStepDef {
     @Steps
     ReqresAPI reqresAPI;
 
