@@ -2,7 +2,6 @@ package starter.StepDef;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import net.serenitybdd.rest.SerenityRest;
@@ -18,7 +17,6 @@ public class GetUsersStepDef {
     @Steps
     ReqresAPI reqresAPI;
 
-    //Get Users
     @Given("Got list users with valid parameter page {int}")
     public void gotListUsersWithValidParameterPage(int page) {
         reqresAPI.getListUsersValidParamPage(page);
@@ -28,11 +26,6 @@ public class GetUsersStepDef {
     public void sendGetListsUsers() {
         SerenityRest.when().get(ReqresAPI.GET_LIST_USERS);
     }
-
-//    @Then("Status code should be {int} OK")
-//    public void statusCodeShouldBeOK(int ok) {
-//        SerenityRest.then().statusCode(ok);
-//    }
 
     @And("Response body page should be {int}")
     public void statusCodeShouldBe(int page) {
@@ -45,13 +38,8 @@ public class GetUsersStepDef {
         SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
     }
 
-    @Given("Got list users empty parameter {string}")
-    public void gotListUsersEmptyParameter(String page) {
-        reqresAPI.getListUsersWithoutParamPage(page);
-    }
-
     @Given("Got list user with invalid parameter {string}")
     public void gotListUserWithInvalidParameter(String invalidParams) {
-        reqresAPI.getListUsersWithoutParamPage(invalidParams);
+        reqresAPI.getListUsersInvalidParamPage(invalidParams);
     }
 }
