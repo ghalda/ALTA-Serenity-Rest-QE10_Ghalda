@@ -7,9 +7,6 @@ import starter.Reqres.ReqresAPI;
 
 public class ReqresStepDef {
 
-    @Steps
-    ReqresAPI reqresAPI;
-
     @Then("Status code should be {int} OK")
     public void statusCodeShouldBeOK(int ok) {
         SerenityRest.then().statusCode(ok);
