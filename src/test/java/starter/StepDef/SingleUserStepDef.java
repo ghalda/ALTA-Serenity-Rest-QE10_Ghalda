@@ -45,4 +45,9 @@ public class SingleUserStepDef {
     public void gotSingleUserWithUnregisteredId(int id) {
         reqresAPI.getListUsersValidId(id);
     }
+
+    @Given("got single user with invalid {string}")
+    public void gotSingleUserWithInvalid(String id) {
+        reqresAPI.getListUsersInvalidId(id);
+    }
 }

@@ -1,5 +1,5 @@
 Feature: Get Single User - Automation Testing
-  @Tugas
+  @Tugas @PositiveCase
   Scenario Outline: Get Single User with user id
     Given Got single user with id <id>
     When Send get single user
@@ -12,6 +12,7 @@ Feature: Get Single User - Automation Testing
       | 2  | janet.weaver@reqres.in |
       | 3  | emma.wong@reqres.in    |
 
+  @Tugas @NegativeCase
   Scenario Outline: Get Single User with unregistered id
     Given got single user with unregistered id <id>
     When Send get single user
@@ -20,3 +21,12 @@ Feature: Get Single User - Automation Testing
       | id |
       | 50 |
       | 51 |
+
+  Scenario Outline: Get Single User with invalid id
+    Given got single user with invalid "<id>"
+    When Send get single user
+    Then Status code should be 400 Bad Request
+  Examples:
+    | id |
+    |    |
+    | a  |
