@@ -18,12 +18,12 @@ public class SingleUserStepDef {
     @Steps
     ReqresAPI reqresAPI;
 
-    @Given("Got single user with id {int}")
-    public void gotSingleUserWithId(int id) {
-        reqresAPI.getListUsersValidId(id);
+    @Given("Single user with id {int}")
+    public void singleUserWithId(int id) {
+        reqresAPI.getSingleUser(id);
     }
 
-    @When("Send get single user")
+    @When("Send GET single user")
     public void sendGetSingleUser() {
         SerenityRest.when().get(ReqresAPI.GET_SINGLE_USER);
     }
@@ -41,13 +41,18 @@ public class SingleUserStepDef {
                 .body(ReqressResponses.DATA_EMAIL,equalTo(email));
     }
 
-    @Given("got single user with unregistered id {int}")
-    public void gotSingleUserWithUnregisteredId(int id) {
-        reqresAPI.getListUsersValidId(id);
+    @Given("Single user with unregistered id {int}")
+    public void singleUserWithUnregisteredId(int id) {
+        reqresAPI.getSingleUser(id);
     }
 
-    @Given("got single user with invalid {string}")
-    public void gotSingleUserWithInvalid(String id) {
-        reqresAPI.getListUsersInvalidId(id);
+    @Given("Single user with invalid id {string}")
+    public void singleUserWithInvalid(String id) {
+        reqresAPI.getSingleUser(id);
+    }
+
+    @Given("Single with empty id")
+    public void singleWithEmptyId() {
+        reqresAPI.getSingleUser("");
     }
 }

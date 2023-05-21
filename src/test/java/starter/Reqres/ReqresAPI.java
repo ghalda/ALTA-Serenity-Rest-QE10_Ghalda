@@ -13,29 +13,19 @@ public class ReqresAPI {
     public static String POST_CREATE_USERS = Constants.BASE_URL+ "/api/users";
     public static String PUT_UPDATE_USER = Constants.BASE_URL+"/api/users/{id}";
     public static String DELETE_USER = Constants.BASE_URL+"/api/users/{id}";
+    public static String POST_REGISTER = Constants.BASE_URL+"/api/register";
+    public static String POST_LOGIN = Constants.BASE_URL+"/api/login";
 
     //Get List Users
-    @Step("Get lists user with valid parameter page")
-    public void getListUsersValidParamPage(int page){
-        SerenityRest.given()
-                .pathParam("page", page);
-    }
-
-    @Step("Get lists user with invalid parameter page")
-    public void getListUsersInvalidParamPage(String page){
+    @Step("Get lists user")
+    public void getListUsers(Object page){
         SerenityRest.given()
                 .pathParam("page", page);
     }
 
     //Get Single User
-    @Step("Get single user with valid id")
-    public void getListUsersValidId(int id){
-        SerenityRest.given()
-                .pathParam("id", id);
-    }
-
-    @Step("Get single user with invalid id")
-    public void getListUsersInvalidId(String id){
+    @Step("Get single user")
+    public void getSingleUser(Object id){
         SerenityRest.given()
                 .pathParam("id", id);
     }
@@ -48,7 +38,7 @@ public class ReqresAPI {
     }
 
     @Step("Put update user")
-    public void putUpdateUser(int id, File json){
+    public void putUpdateUser(Object id, File json){
         SerenityRest.given()
                 .pathParam("id",id)
                 .contentType(ContentType.JSON)
@@ -56,8 +46,23 @@ public class ReqresAPI {
     }
 
     @Step("Delete user")
-    public void deleteUser(int id){
+    public void deleteUser(Object id){
         SerenityRest.given()
                 .pathParam("id",id);
+    }
+
+    //Register Users
+    @Step("Post Register User")
+    public void registerUser(File json){
+        SerenityRest.given()
+                .contentType(ContentType.JSON)
+                .body(json);
+    }
+
+    @Step("Post Login User")
+    public void LoginUser(File json){
+        SerenityRest.given()
+                .contentType(ContentType.JSON)
+                .body(json);
     }
 }

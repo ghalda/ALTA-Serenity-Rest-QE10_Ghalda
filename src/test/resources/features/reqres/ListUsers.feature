@@ -1,8 +1,8 @@
 Feature: Get User - Automation Testing
-  @Tugas
+  @Tugas @PositiveCase
   Scenario Outline: Get List Users with valid parameter page
-    Given Got list users with valid parameter page <page>
-    When Send get lists users
+    Given <page> as valid parameter page
+    When Send GET lists users
     Then Status code should be 200 OK
     And Response body page should be <page>
     And Validate get list user json schema
@@ -11,13 +11,27 @@ Feature: Get User - Automation Testing
       | 1    |
       | 2    |
 
-  @Tugas
+  @Tugas @NegativeCase
+    Scenario Outline: Get List Users with exceeded parameter
+      Given <page> as exceeded parameter page
+      When Send GET lists users
+      Then Status code should be 404 Not Found
+    Examples:
+      | page |
+      | 3    |
+
+  @Tugas @NegativeCase
   Scenario Outline: Get List Users with invalid parameter
-    Given Got list user with invalid parameter "<invalidParams>"
-    When Send get lists users
+    Given "<invalidParams>" as invalid parameter
+    When Send GET lists users
     Then Status code should be 400 Bad Request
     Examples:
       | invalidParams |
       | z             |
       | @             |
-      |               |
+
+  @Tugas @NegativeCase
+  Scenario: Get List Users with empty parameter
+    Given empty parameter to get list users
+    When Send GET lists users
+    Then Status code should be 400 Bad Request

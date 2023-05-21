@@ -17,12 +17,12 @@ public class GetUsersStepDef {
     @Steps
     ReqresAPI reqresAPI;
 
-    @Given("Got list users with valid parameter page {int}")
+    @Given("{int} as valid parameter page")
     public void gotListUsersWithValidParameterPage(int page) {
-        reqresAPI.getListUsersValidParamPage(page);
+        reqresAPI.getListUsers(page);
     }
 
-    @When("Send get lists users")
+    @When("Send GET lists users")
     public void sendGetListsUsers() {
         SerenityRest.when().get(ReqresAPI.GET_LIST_USERS);
     }
@@ -38,8 +38,18 @@ public class GetUsersStepDef {
         SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
     }
 
-    @Given("Got list user with invalid parameter {string}")
+    @Given("{string} as invalid parameter")
     public void gotListUserWithInvalidParameter(String invalidParams) {
-        reqresAPI.getListUsersInvalidParamPage(invalidParams);
+        reqresAPI.getListUsers(invalidParams);
+    }
+
+    @Given("empty parameter to get list users")
+    public void emptyParameterToGetListUsers() {
+        reqresAPI.getListUsers("");
+    }
+
+    @Given("{int} as exceeded parameter page")
+    public void asExceededParameterPage(int page) {
+        reqresAPI.getListUsers(page);
     }
 }
