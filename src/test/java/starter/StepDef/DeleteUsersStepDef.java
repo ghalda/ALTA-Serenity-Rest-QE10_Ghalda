@@ -1,19 +1,11 @@
 package starter.StepDef;
 
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.module.jsv.JsonSchemaValidator;
 import net.serenitybdd.rest.SerenityRest;
 import starter.Reqres.ReqresAPI;
-import starter.Reqres.ReqressResponses;
-import starter.Utils.Constants;
 import net.thucydides.core.annotations.Steps;
-
-import java.io.File;
-
-import static org.hamcrest.Matchers.equalTo;
 
 public class DeleteUsersStepDef {
     @Steps
@@ -35,22 +27,18 @@ public class DeleteUsersStepDef {
         SerenityRest.then().statusCode(noContent);
     }
 
-    @And("Validate post list user json schema")
-    public void validatePostListUserJsonSchema() {
-        File json = new File(Constants.JSON_SCHEMA_DIR+"CreateUserJSONSchema.json");
-        SerenityRest.and().body(JsonSchemaValidator.matchesJsonSchema(json));
+    @Given("Delete user with exceeded parameter id {int}")
+    public void deleteUserWithExceededParameterId(int id) {
+        reqresAPI.deleteUser(id);
     }
 
-    @And("Validate put user json schema")
-    public void validatePostUserJsonSchema() {
-        File json = new File(Constants.JSON_SCHEMA_DIR+"UpdateUserJSONSchema.json");
-        SerenityRest.and().body(JsonSchemaValidator.matchesJsonSchema(json));
+    @Given("Delete user with invalid parameter id {}")
+    public void deleteUserWithInvalidParameterId(String id) {
+        reqresAPI.deleteUser(id);
     }
 
-    @And("Response body for update name was {string} and job was {string}")
-    public void responseBodyForUpdateNameWasAndJobWas(String name, String job) {
-        SerenityRest.and()
-                .body(ReqressResponses.NAME,equalTo(name))
-                .body(ReqressResponses.JOB,equalTo(job));
+    @Given("Delete user with empty parameter id")
+    public void deleteUserWithEmptyParameterId() {
+        reqresAPI.deleteUser("");
     }
 }

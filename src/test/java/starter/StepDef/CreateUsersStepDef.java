@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Steps;
 import starter.Reqres.ReqresAPI;
@@ -21,7 +22,7 @@ public class CreateUsersStepDef {
 
     @Given("Post create new user with valid json")
     public void postCreateNewUserWithValidJson() {
-        File json = new File(Constants.REQ_BODY_DIR+"UserReqBody.json");
+        File json = new File(Constants.REQ_BODY_DIR+"Create/ValidJobAndName.json");
         reqresAPI.postCreateUsers(json);
     }
 
@@ -40,5 +41,29 @@ public class CreateUsersStepDef {
         SerenityRest.and()
                 .body(ReqressResponses.NAME,equalTo(name))
                 .body(ReqressResponses.JOB,equalTo(job));
+    }
+
+    @And("Validate post list user json schema")
+    public void validatePostListUserJsonSchema() {
+        File json = new File(Constants.JSON_SCHEMA_DIR+"Create/CreateUserJSONSchema.json");
+        SerenityRest.and().body(JsonSchemaValidator.matchesJsonSchema(json));
+    }
+
+    @Given("Post create new user without request body")
+    public void postCreateNewUserWithoutRequestBody() {
+        File json = new File(Constants.REQ_BODY_DIR+"Create/WithoutReqBody.json");
+        reqresAPI.postCreateUsers(json);
+    }
+
+    @Given("Post create new user without job")
+    public void postCreateNewUserWithoutJob() {
+        File json = new File(Constants.REQ_BODY_DIR+"Create/WithoutJob.json");
+        reqresAPI.postCreateUsers(json);
+    }
+
+    @Given("Post create new user without name")
+    public void postCreateNewUserWithoutName() {
+        File json = new File(Constants.REQ_BODY_DIR+"Create/WithoutName.json");
+        reqresAPI.postCreateUsers(json);
     }
 }
